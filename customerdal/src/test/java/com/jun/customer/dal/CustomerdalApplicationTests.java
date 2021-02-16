@@ -17,7 +17,6 @@ class CustomerdalApplicationTests {
     void testCreateCustomer() {
         Customer customer = new Customer();
         customer.setName("Jun");
-        ;
         customer.setEmail("kijoonh91@gmail.com");
         repo.save(customer);
     }
