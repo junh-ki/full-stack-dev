@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.jun.location.entities.Location;
@@ -32,6 +33,17 @@ public class LocationController {
     
     @RequestMapping("/displayLocations")
     public String displayLocations(ModelMap modelMap) {
+        List<Location> locations = service.getAllLocations();
+        modelMap.addAttribute("locations", locations);
+        return "displayLocations";
+    }
+    
+    @RequestMapping("deleteLocation")
+    public String deleteLocation(@RequestParam("id") int id, ModelMap modelMap) {
+        //Location location = service.getLocationById(id); // need a database call
+        Location location = new Location(); // this approach doesn't need a database call
+        location.setId(id);
+        service.deleteLocation(location);
         List<Location> locations = service.getAllLocations();
         modelMap.addAttribute("locations", locations);
         return "displayLocations";
