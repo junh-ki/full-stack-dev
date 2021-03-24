@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.jun.location.entities.Location;
 import com.jun.location.service.LocationService;
+import com.jun.location.util.EmailUtil;
 
 @Controller
 public class LocationController {
@@ -18,6 +19,9 @@ public class LocationController {
     @Autowired
     LocationService service;
 
+    @Autowired
+    EmailUtil emailUtil;
+    
     @RequestMapping("/showCreate")
     public String showCreate() {
         return "createLocation";
@@ -28,6 +32,9 @@ public class LocationController {
         Location locationSaved = service.saveLocation(location);
         String msg = "Location saved with id: " + locationSaved.getId();
         modelMap.addAttribute("msg", msg);
+        emailUtil.sendEmail("kijoonh91@gmail.com", "Location Saved", 
+                "Location Saved Successfully and about to return a response"); 
+        // You can read the user's email address from the database or the properties file
         return "createLocation";
     }
     
