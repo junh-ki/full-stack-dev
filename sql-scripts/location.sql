@@ -8,5 +8,6 @@ create table location (
 )
 
 select * from location
+select type,count(type) from location group by type
 
 drop table location
