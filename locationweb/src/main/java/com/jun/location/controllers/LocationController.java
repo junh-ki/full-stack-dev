@@ -2,6 +2,8 @@ package com.jun.location.controllers;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.jun.location.entities.Location;
+import com.jun.location.entities.repos.LocationRepository;
 import com.jun.location.service.LocationService;
 import com.jun.location.util.EmailUtil;
+import com.jun.location.util.ReportUtil;
 
 @Controller
 public class LocationController {
@@ -20,7 +24,16 @@ public class LocationController {
     LocationService service;
 
     @Autowired
+    LocationRepository repository;
+    
+    @Autowired
     EmailUtil emailUtil;
+    
+    @Autowired
+    ReportUtil reportUtil;
+    
+    @Autowired
+    ServletContext sc;
     
     @RequestMapping("/showCreate")
     public String showCreate() {
@@ -69,5 +82,13 @@ public class LocationController {
         List<Location> locations = service.getAllLocations();
         modelMap.addAttribute("locations", locations);
         return "displayLocations";
+    }
+    
+    @RequestMapping("/generateReport")
+    public String generateReport() {
+        String path = sc.getRealPath("/");
+        List<Object[]> data = repository.findTypeAndTypeCount();
+        reportUtil.generatePieChart(path, data);
+        return "report";
     }
 }
