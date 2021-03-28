@@ -1,3 +1,5 @@
+create database projectdb
+
 use projectdb
 
 create table location (
