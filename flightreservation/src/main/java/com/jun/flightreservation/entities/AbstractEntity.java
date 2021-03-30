@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
 public class AbstractEntity {
     
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO) // this annotation says that this id field will be automatically incremented in the database for us
+    @GeneratedValue(strategy=GenerationType.IDENTITY) // this annotation says that this id field will be automatically incremented in the database for us
     private Long id;
 
     public Long getId() {
