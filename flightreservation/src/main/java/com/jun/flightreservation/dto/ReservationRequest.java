@@ -2,7 +2,7 @@ package com.jun.flightreservation.dto;
 
 public class ReservationRequest {
 
-    private Long flihgtId;
+    private Long flightId;
     private String passengerFirstName;
     private String passengerLastName;
     private String passengerEmail;
@@ -12,12 +12,12 @@ public class ReservationRequest {
     private String expirationDate;
     private String securityCode;
 
-    public Long getFlihgtId() {
-        return flihgtId;
+    public Long getFlightId() {
+        return flightId;
     }
 
-    public void setFlihgtId(Long flihgtId) {
-        this.flihgtId = flihgtId;
+    public void setFlightId(Long flightId) {
+        this.flightId = flightId;
     }
 
     public String getPassengerFirstName() {

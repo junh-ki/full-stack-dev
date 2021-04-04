@@ -1,6 +1,7 @@
 package com.jun.flightreservation.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.jun.flightreservation.dto.ReservationRequest;
 import com.jun.flightreservation.entities.Flight;
@@ -10,6 +11,7 @@ import com.jun.flightreservation.repos.FlightRepository;
 import com.jun.flightreservation.repos.PassengerRepository;
 import com.jun.flightreservation.repos.ReservationRepository;
 
+@Service
 public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
@@ -24,15 +26,14 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Reservation bookFlight(ReservationRequest request) {
         // Make Payment through a third party software
-        
-        Long flightId = request.getFlihgtId();
+        Long flightId = request.getFlightId();
         Flight flight = flightRepository.findById(flightId).get();
         
         Passenger passenger = new Passenger();
         passenger.setFirstName(request.getPassengerFirstName());
         passenger.setLastName(request.getPassengerLastName());
+        passenger.setEmail(request.getPassengerEmail());
         passenger.setPhone(request.getPassengerPhone());
-        passenger.setPhone(request.getPassengerEmail());
         Passenger savedPassenger = passengerRepository.save(passenger);
         
         Reservation reservation = new Reservation();
