@@ -12,6 +12,8 @@ phone varchar(20),
 address varchar(20)
 )
 
+insert into vendor values(3, '0000', 'BOSCH', 'EUROPE', 'DE', '49', 'GERMANY')
+
 select * from vendor
 
 drop table vendor
