@@ -14,9 +14,7 @@ public class ReservationRestClientImpl implements ReservationRestClient {
     @Override
     public Reservation findReservation(Long id) {
         RestTemplate restTemplate = new RestTemplate();
-        
-        String url = RESERVATION_REST_URL + id;
-        Reservation reservation = restTemplate.getForObject(url, Reservation.class);
+        Reservation reservation = restTemplate.getForObject(RESERVATION_REST_URL + id, Reservation.class);
         return reservation;
     }
 
