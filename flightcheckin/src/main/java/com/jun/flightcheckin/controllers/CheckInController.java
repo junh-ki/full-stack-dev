@@ -14,7 +14,7 @@ import com.jun.flightcheckin.integration.dto.ReservationUpdateRequest;
 public class CheckInController {
     
     @Autowired
-    ReservationRestClient restClient;
+    private ReservationRestClient restClient;
     
     @RequestMapping("/showStartCheckin")
     public String showStartCheckin() {
