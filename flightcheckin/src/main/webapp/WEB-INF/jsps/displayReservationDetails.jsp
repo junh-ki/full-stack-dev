@@ -24,8 +24,8 @@ Email: ${reservation.passenger.email}<br/>
 Phone: ${reservation.passenger.phone}<br/>
 
 <form action="completeCheckIn" method="post">
-Enter the Number Of Bags You want to check in: <input type="text" name="numberOfBags">
-<input type="hidden" value="${reservation.id}"/>
+Enter the Number Of Bags You want to check in: <input type="text" name="numberOfBags"/>
+<input type="hidden" value="${reservation.id}" name="reservationId"/>
 <input type="submit" value="Check In"/>
 </form>
 

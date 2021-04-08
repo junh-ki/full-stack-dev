@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jun.flightcheckin.integration.ReservationRestClient;
 import com.jun.flightcheckin.integration.dto.Reservation;
+import com.jun.flightcheckin.integration.dto.ReservationUpdateRequest;
 
 @Controller
 public class CheckInController {
@@ -25,6 +26,16 @@ public class CheckInController {
         Reservation reservation = restClient.findReservation(reservationId);
         modelMap.addAttribute("reservation", reservation);
         return "displayReservationDetails";
+    }
+    
+    @RequestMapping("/completeCheckIn")
+    public String completeCheckIn(@RequestParam("reservationId") Long reservationId, @RequestParam("numberOfBags") int numberOfBags) {
+        ReservationUpdateRequest reservationUpdateRequest = new ReservationUpdateRequest();
+        reservationUpdateRequest.setId(reservationId);
+        reservationUpdateRequest.setCheckedIn(true);
+        reservationUpdateRequest.setNumberOfBags(numberOfBags);
+        restClient.updateReservation(reservationUpdateRequest);
+        return "checkInConfirmation";
     }
     
 }
