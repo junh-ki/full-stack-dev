@@ -1,6 +1,6 @@
-CREATE DATABASE reservation
+CREATE DATABASE reservation;
 
-USE reservation
+USE reservation;
 
 CREATE TABLE user (
   id INT NOT NULL AUTO_INCREMENT,
@@ -10,7 +10,7 @@ CREATE TABLE user (
   password VARCHAR(256), 
   PRIMARY KEY (id),
   UNIQUE KEY (email)
-)
+);
 
 CREATE TABLE flight (
   id INT  NOT NULL AUTO_INCREMENT,
@@ -21,7 +21,7 @@ CREATE TABLE flight (
   date_of_departure DATE  NOT NULL,
   estimated_departure_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
   PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE passenger
 (
@@ -32,7 +32,7 @@ CREATE TABLE passenger
   email VARCHAR(50),
   phone VARCHAR(10),
   PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE reservation
 (
@@ -45,16 +45,35 @@ CREATE TABLE reservation
   PRIMARY KEY (id),
   FOREIGN KEY (passenger_id) REFERENCES passenger(id) ON DELETE CASCADE,
   FOREIGN KEY (flight_id) REFERENCES flight(id)
-)
+);
 
-SELECT * FROM user
-SELECT * FROM passenger
-SELECT * FROM flight
-SELECT * FROM reservation
+CREATE TABLE role (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(20),
+  PRIMARY KEY (id)
+);
 
-DROP TABLE user
-DROP TABLE reservation
-DROP TABLE passenger
-DROP TABLE flight
+CREATE TABLE user_role(
+  user_id int,
+  role_id int,
+  FOREIGN KEY (user_id)
+  REFERENCES user(id),
+  FOREIGN KEY (role_id)
+  REFERENCES role(id)
+);
 
-DROP DATABASE reservation
+SELECT * FROM user;
+SELECT * FROM passenger;
+SELECT * FROM flight;
+SELECT * FROM reservation;
+SELECT * FROM role;
+SELECT * FROM user_role;
+
+DROP TABLE user;
+DROP TABLE reservation;
+DROP TABLE passenger;
+DROP TABLE flight;
+DROP TABLE role;
+DROP TABLE user_role;
+
+DROP DATABASE reservation;
