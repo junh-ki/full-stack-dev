@@ -62,6 +62,9 @@ CREATE TABLE user_role(
   REFERENCES role(id)
 );
 
+INSERT INTO role VALUES(1, 'ADMIN');
+INSERT INTO user_role VALUES(1, 1);
+
 SELECT * FROM user;
 SELECT * FROM passenger;
 SELECT * FROM flight;
