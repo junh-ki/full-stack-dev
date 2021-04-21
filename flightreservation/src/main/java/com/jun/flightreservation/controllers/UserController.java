@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jun.flightreservation.entities.User;
 import com.jun.flightreservation.repos.UserRepository;
+import com.jun.flightreservation.services.SecurityService;
 
 @Controller
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private SecurityService securityService;
     
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     
@@ -47,9 +51,9 @@ public class UserController {
     
     @RequestMapping(value="/login", method=RequestMethod.POST)
     public String login(@RequestParam("email") String email, @RequestParam("password") String password, ModelMap modelMap) {
+        boolean loginResponse = securityService.login(email, password);
         LOGGER.info("Inside login() and the email is: " + email);
-        User user = userRepository.findByEmail(email);
-        if (user.getPassword().equals(password)) {
+        if (loginResponse) {
             return "findFlights";
         } else {
             modelMap.addAttribute("msg", "Invalid user name or password. Please try again.");
