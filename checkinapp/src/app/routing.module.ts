@@ -5,7 +5,11 @@ import {CheckinComponent} from './components/checkin/checkin.component';
 import {ConfirmcheckinComponent} from './components/confirmcheckin/confirmcheckin.component';
 
 const routes:Routes=[
-    {path:'',redirectTo:'',pathMatch:'full'},
+    {
+        path:'',
+        redirectTo:'',
+        pathMatch:'full'
+    },
     {
         path:'startCheckIn',
         component:StartcheckinComponent
