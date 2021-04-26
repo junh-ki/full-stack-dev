@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class StartcheckinComponent implements OnInit {
 
-  reservationId = "";
+  reservationId:any;
 
   constructor(private router:Router) { }
 
