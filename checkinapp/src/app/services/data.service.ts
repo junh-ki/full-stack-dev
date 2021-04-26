@@ -14,7 +14,7 @@ export class DataService {
 
   public getReservation(id:number):any{
     return this._http.get(this.url+id)
-    .pipe(map(response=>{
+    .pipe(map((response:any)=>{
       return response;
     },
     error=>{
@@ -24,7 +24,7 @@ export class DataService {
   }
 
   public checkin(checkInRequest):any{
-    return this._http.post(this.url,checkInRequest).pipe(map(res=>{
+    return this._http.post(this.url,checkInRequest).pipe(map((res:any)=>{
       return res;
     },
     error=>{
