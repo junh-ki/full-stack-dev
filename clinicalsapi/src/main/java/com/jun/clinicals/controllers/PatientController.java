@@ -1,7 +1,9 @@
 package com.jun.clinicals.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jun.clinicals.model.ClinicalData;
 import com.jun.clinicals.model.Patient;
 import com.jun.clinicals.repos.PatientRepository;
+import com.jun.clinicals.util.BMICalculator;
 
 @RestController
 @RequestMapping("/api")
 public class PatientController {
 
 	private PatientRepository repository;
+	private Map<String, String> filters = new HashMap<>();
 	
 	@Autowired
 	PatientController(PatientRepository repository) {
@@ -44,11 +48,17 @@ public class PatientController {
 	public Patient analyze(@PathVariable("id") int id) {
 		Patient patient = repository.findById(id).get();
 		List<ClinicalData> clinicalData = patient.getClinicalData();
-		ArrayList<ClinicalData> duplicateClinicalData = new ArrayList<>(clinicalData);
+		List<ClinicalData> duplicateClinicalData = new ArrayList<>(clinicalData);
 		for(ClinicalData eachEntry : duplicateClinicalData) {
-			
+			if (filters.containsKey(eachEntry.getComponentName())) {
+				clinicalData.remove(eachEntry);
+				continue;
+			} else {
+				filters.put(eachEntry.getComponentName(), null);
+			}
+			BMICalculator.calculateBMI(clinicalData, eachEntry);
 		}
-		
+		filters.clear();
 		return patient;
 	}
 
