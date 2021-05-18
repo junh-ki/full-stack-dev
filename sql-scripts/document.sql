@@ -1,4 +1,4 @@
-create projectdb;
+create database projectdb;
 use projectdb;
 
 create table document(
